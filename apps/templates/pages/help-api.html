@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação da API</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --dark: #11171a;
+            --orange: #ff9100;
+            --white: #ffffff;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 20px;
+        }
+        
+        h1 {
+            color: var(--orange);
+        }
+        
+        .desc {
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .route-card {
+            background-color: #222;
+            border: 1px solid #333;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        
+        .route-card h2 {
+            color: var(--orange);
+        }
+        
+        .route-card pre {
+            background-color: #333;
+            color: var(--white);
+            padding: 15px;
+            overflow-y: scroll;
+            border-radius: 8px;
+        }
+        
+        .route-icon {
+            color: var(--orange);
+            margin-right: 10px;
+        }
+
+        a {
+            background-color: #ff9100;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 8px;
+            color: #11171a;
+            font-size: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Documentação da API</h1>
+    <p class="desc">Server by Luhdev - Made in © MDev Systems</p>
+
+    <a href="{% url 'homepage' %}">Voltar ao Site</a>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <div class="route-card">
+            <h2><i class="fas fa-user route-icon"></i>GET /get/user/</h2>
+            <p>Faz a busca de um usuário no banco de dados a partir do número de telefone dele.</p>
+            <pre>
+fetch('/get/user/?jid=123456789', {
+    method: 'GET'
+})
+.then(response => response.json())
+.then(data => console.log(data));
+            </pre>
+        </div>
+
+        <div class="route-card">
+            <h2><i class="fas fa-cogs route-icon"></i>GET /get/config/</h2>
+            <p>Obtém as configurações do bot determinadas pelo dono [prefixo, nome-bot, etc.].</p>
+            <pre>
+fetch('/get/config/?identificadorNomeBot=myBot', {
+    method: 'GET'
+})
+.then(response => response.json())
+.then(data => console.log(data));
+            </pre>
+        </div>
+
+        <div class="route-card">
+            <h2><i class="fas fa-key route-icon"></i>GET /get/apikey/</h2>
+            <p>Obtém uma chave API de algum sistema externo a partir do nome dado à chave e sua senha.</p>
+            <pre>
+fetch('/get/apikey/?apiname=myApi&password=secret', {
+    method: 'GET'
+})
+.then(response => response.json())
+.then(data => console.log(data));
+            </pre>
+        </div>
+
+        <div class="route-card">
+            <h2><i class="fas fa-user-slash route-icon"></i>GET /get/user/ban/</h2>
+            <p>Obtém uma lista de usuários que estão banidos para executarem comandos no bot.</p>
+            <pre>
+fetch('/get/user/ban/', {
+    method: 'GET'
+})
+.then(response => response.json())
+.then(data => console.log(data));
+            </pre>
+        </div>
+
+        <div class="route-card">
+            <h2><i class="fas fa-star route-icon"></i>GET /get/user/premium/</h2>
+            <p>Obtém uma lista de usuários premiums do bot.</p>
+            <pre>
+fetch('/get/user/premium/', {
+    method: 'GET'
+})
+.then(response => response.json())
+.then(data => console.log(data));
+            </pre>
+        </div>
+
+        <div class="route-card">
+            <h2><i class="fas fa-user-plus route-icon"></i>POST /post/create-user/</h2>
+            <p>Rota para criar um novo usuário no banco de dados.</p>
+            <pre>
+fetch('/post/create-user/', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        jid: '123456789',
+        nome: 'Novo Usuário',
+        xpInicial: 0,
+        saldoInicial: 100
+    })
+})
+.then(response => response.json())
+.then(data => console.log(data));
+            </pre>
+        </div>
+
+        <div class="route-card">
+            <h2><i class="fas fa-user-edit route-icon"></i>POST /post/editUserAttribute/</h2>
+            <p>Rota para editar um atributo de um usuário a partir de seu jid.</p>
+            <pre>
+fetch('/post/editUserAttribute/', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        jid: '123456789',
+        editarAtributo: 'saldo',
+        novoValor: 200,
+        adicionarNoAtributo: false
+    })
+})
+.then(response => response.json())
+.then(data => console.log(data));
+            </pre>
+        </div>
+
+        <div class="route-card">
+            <h2><i class="fas fa-user-crown route-icon"></i>POST /post/editUserIsPremium/</h2>
+            <p>Rota para editar o atributo premium de um usuário a partir de seu jid.</p>
+            <pre>
+fetch('/post/editUserIsPremium/', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        jid: '123456789',
+        promoverPremium: true
+    })
+})
+.then(response => response.json())
+.then(data => console.log(data));
+            </pre>
+        </div>
+
+        <div class="route-card">
+            <h2><i class="fas fa-vial route-icon"></i>TEST /test-api/</h2>
+            <p>Retorna que a API está no ar.</p>
+            <pre>
+fetch('/test-api/', {
+    method: 'GET'
+})
+.then(response => response.json())
+.then(data => console.log(data));
+            </pre>
+        </div>
+
+        <div class="route-card">
+            <h2><i class="fas fa-question-circle route-icon"></i>TEST /help/</h2>
+            <p>Retorna que a API está no ar.</p>
+            <pre>               
+fetch('/help/', {
+    method: 'GET'
+})
+.then(response => response.json())
+.then(data => console.log(data));
+            </pre>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
